@@ -27,3 +27,5 @@ No se envían notificaciones de correo. Consultar el panel para revisar nuevas c
 ## Identidad visual
 
 Se reutiliza la línea de los materiales de Caoba en `/caoba/decision/`: terracota #ca662d, tinta #594544, marrón profundo #3a2c2b, Jost para títulos y controles y Literata para lectura. Logo de aniversario (10 años), procedente de /caoba/logo/caoba-10anos-static.png y usado en las firmas actuales; motivo de anillos de los materiales existentes. Fuentes alojadas localmente para mantener CSP y evitar peticiones de candidatos a Google Fonts.
+
+Cada una de las siete respuestas incluye contador visible, aviso a las 100 palabras y validación inmediata si se excede el máximo. El contador contempla espacios y saltos de línea, se actualiza al escribir o pegar y recalcula respuestas conservadas tras un error. Se mantiene la validación del servidor.

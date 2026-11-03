@@ -37,3 +37,4 @@
 
 /* Versión de aniversario usada en los materiales actuales de Caoba. */
 header .brand img{width:180px;height:auto}footer .brand img{width:150px;height:auto}@media(max-width:650px){header .brand img{width:145px}footer .brand img{width:130px}}
+.word-count{display:block;margin-top:8px;font-variant-numeric:tabular-nums}.word-count[data-state="limit"]{color:var(--accent-dark);font-weight:600}.word-count[data-state="over"]{color:#a12620;font-weight:600}textarea[aria-invalid="true"]{border-color:#a12620}
