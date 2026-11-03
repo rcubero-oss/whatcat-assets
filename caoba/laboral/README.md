@@ -23,3 +23,7 @@ Se registra consentimiento y fecha, sin puntuación ni decisiones automatizadas.
 Pruebas HTTPS con datos ficticios: formulario cerrado, acceso privado de prueba, CSRF, consentimiento, rechazo de PDF falso y de más de 5 MB, máximo de 100 palabras, envío y persistencia, límite de frecuencia, autenticación del panel, descarga íntegra de PDF, cambios de estado, escape de notas y denegación de acceso al almacenamiento privado.
 
 No se envían notificaciones de correo. Consultar el panel para revisar nuevas candidaturas.
+
+## Identidad visual
+
+Se reutiliza la línea de los materiales de Caoba en `/caoba/decision/`: terracota #ca662d, tinta #594544, marrón profundo #3a2c2b, Jost para títulos y controles y Literata para lectura. Logo oficial procedente de caobalegal.com/images/Caoba-Legal.png; motivo de anillos de los materiales existentes. Fuentes alojadas localmente para mantener CSP y evitar peticiones de candidatos a Google Fonts.
