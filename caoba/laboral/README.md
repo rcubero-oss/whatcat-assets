@@ -26,4 +26,4 @@ No se envían notificaciones de correo. Consultar el panel para revisar nuevas c
 
 ## Identidad visual
 
-Se reutiliza la línea de los materiales de Caoba en `/caoba/decision/`: terracota #ca662d, tinta #594544, marrón profundo #3a2c2b, Jost para títulos y controles y Literata para lectura. Logo oficial procedente de caobalegal.com/images/Caoba-Legal.png; motivo de anillos de los materiales existentes. Fuentes alojadas localmente para mantener CSP y evitar peticiones de candidatos a Google Fonts.
+Se reutiliza la línea de los materiales de Caoba en `/caoba/decision/`: terracota #ca662d, tinta #594544, marrón profundo #3a2c2b, Jost para títulos y controles y Literata para lectura. Logo de aniversario (10 años), procedente de /caoba/logo/caoba-10anos-static.png y usado en las firmas actuales; motivo de anillos de los materiales existentes. Fuentes alojadas localmente para mantener CSP y evitar peticiones de candidatos a Google Fonts.
