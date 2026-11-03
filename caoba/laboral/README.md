@@ -20,7 +20,7 @@ Se registra consentimiento y fecha, sin puntuación ni decisiones automatizadas.
 
 ## Validación
 
-Pruebas HTTPS con datos ficticios: formulario cerrado, acceso privado de prueba, CSRF, consentimiento, rechazo de PDF falso y de más de 5 MB, máximo de 100 palabras, envío y persistencia, límite de frecuencia, autenticación del panel, descarga íntegra de PDF, cambios de estado, escape de notas y denegación de acceso al almacenamiento privado.
+Pruebas HTTPS con datos ficticios: siete respuestas obligatorias (incluidas referencias), formulario cerrado, acceso privado de prueba, CSRF, consentimiento, rechazo de PDF falso y de más de 5 MB, máximo de 100 palabras, envío y persistencia, límite de frecuencia, autenticación del panel, descarga íntegra de PDF, cambios de estado, escape de notas y denegación de acceso al almacenamiento privado.
 
 No se envían notificaciones de correo. Consultar el panel para revisar nuevas candidaturas.
 

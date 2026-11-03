@@ -15,7 +15,8 @@ $questions=[
 'Un cliente empresarial envía una consulta urgente y faltan datos importantes. ¿Qué haría antes de preparar una respuesta?',
 'Un cliente le pide incluir una cláusula en un contrato laboral que considera inválida o riesgosa. ¿Cómo abordaría la situación?',
 'Tiene dos consultas urgentes de distintos clientes corporativos para hoy. ¿Qué criterios usaría para priorizarlas?',
-'Cuéntenos una ocasión en la que tuvo que entregar un resultado de alta calidad bajo presión de tiempo. ¿Cómo se organizó?'];
+'Cuéntenos una ocasión en la que tuvo que entregar un resultado de alta calidad bajo presión de tiempo. ¿Cómo se organizó?',
+'¿A quién podríamos pedirle referencias suyas? Indicar nombre, relación y contacto.'];
 // Configuration is held outside the public web directory. Fail closed until configured.
 $configPath=dirname((string)($_SERVER['DOCUMENT_ROOT'] ?? __DIR__)).'/caoba-private/config.php';
 $cfg=is_file($configPath) ? require $configPath : [];
@@ -112,12 +113,12 @@ $success=isset($_GET['enviada'],$_SESSION['receipt']);
 <section id="postulacion"><p class="eyebrow">SU SIGUIENTE PASO</p><h2>Cuéntenos cómo quiere crecer.</h2>
 <?php if($success): ?><div role="status" class="notice"><h3>Recibimos su postulación.</h3><p>Su currículum y respuestas quedaron registrados para revisión del equipo de selección.</p><p>Referencia: <?=h($_SESSION['receipt'])?></p></div>
 <?php elseif(!$ready): ?><div class="notice"><h3>Próximamente abriremos las postulaciones.</h3><p>Estamos preparando los detalles de la oportunidad y el proceso de selección. El formulario se habilitará en esta misma página.</p></div>
-<?php else: ?><p>Complete las seis respuestas en un máximo de 100 palabras cada una. Puede utilizar experiencias laborales o académicas. Adjunte su currículum en PDF, de hasta 5 MB.</p>
+<?php else: ?><p>Complete las siete respuestas en un máximo de 100 palabras cada una. Puede utilizar experiencias laborales o académicas. Adjunte su currículum en PDF, de hasta 5 MB.</p>
 <?php if($error): ?><p role="alert" class="notice"><?=h($error)?></p><?php endif; ?>
 <form method="post" enctype="multipart/form-data"><input type="hidden" name="csrf" value="<?=h($_SESSION['csrf'])?>"><div class="trap" aria-hidden="true"><label>Sitio web<input name="website" tabindex="-1" autocomplete="off"></label></div>
 <?php foreach(['name'=>'Nombre completo','email'=>'Correo electrónico','phone'=>'Teléfono'] as $key=>$label): ?><label><?=h($label)?><input required name="<?=$key?>" type="<?=$key==='email'?'email':($key==='phone'?'tel':'text')?>" maxlength="200" value="<?=h($_POST[$key]??'')?>"></label><?php endforeach; ?>
 <label>Perfil<select required name="profile"><option value="">Seleccione</option><?php foreach(['Abogado/a junior incorporado/a','Asistente senior estudiante de Derecho'] as $profile): ?><option <?=($_POST['profile']??'')===$profile?'selected':''?>><?=h($profile)?></option><?php endforeach; ?></select></label>
 <label>Formación, universidad y avance de carrera o número de incorporación<textarea required name="education" maxlength="2000"><?=h($_POST['education']??'')?></textarea></label><label>Disponibilidad de ingreso y para traslados relacionados con el puesto<textarea required name="availability" maxlength="2000"><?=h($_POST['availability']??'')?></textarea></label>
-<?php foreach($questions as $i=>$q): ?><label><span class="eyebrow">PREGUNTA <?=$i+1?> / 6</span><br><?=h($q)?><textarea required name="q<?=$i?>" maxlength="4000"><?=h($_POST['q'.$i]??'')?></textarea><small>Máximo 100 palabras.</small></label><?php endforeach; ?>
+<?php foreach($questions as $i=>$q): ?><label><span class="eyebrow">PREGUNTA <?=$i+1?> / <?=count($questions)?></span><br><?=h($q)?><textarea required name="q<?=$i?>" maxlength="4000"><?=h($_POST['q'.$i]??'')?></textarea><small>Máximo 100 palabras.</small></label><?php endforeach; ?>
 <label>Currículum en PDF · máximo 5 MB<input required type="file" name="cv" accept="application/pdf,.pdf"></label><p>Caoba Legal utilizará sus datos, respuestas y currículum exclusivamente para gestionar este proceso de selección. Tendrán acceso las personas autorizadas del equipo de selección y de soporte técnico de WhatCat. Para consultas sobre sus datos: <?=h($cfg['privacy_contact'])?>. Conservación: <?=h($cfg['retention'])?>.</p><label class="check"><input required type="checkbox" name="consent" value="1"> He leído la información del proceso y autorizo el tratamiento de mis datos para esta postulación.</label><button type="submit">Enviar mi postulación ↗</button></form><?php endif; ?></section>
 </main><footer><span class="brand"><img src="brand/caoba-10anos.png" alt="Caoba Legal · 10 años" width="360" height="203"></span><p>Derecho Laboral Corporativo</p></footer></body></html>
