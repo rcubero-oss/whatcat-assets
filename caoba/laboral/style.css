@@ -38,3 +38,10 @@ header .brand img{width:180px;height:auto}footer .brand img{width:150px;height:a
 
 /* Noto Sans SC: Light para lectura; Medium para títulos y controles. */
 body{font-weight:300}.lead,.grid p,#postulacion>p,form>p{font-weight:300}input,textarea,select,.check,small,.caption{font-weight:300}h1,h2,h3,label,button,.button,.eyebrow,strong,b{font-weight:500}h1 em{font-weight:500}.word-count[data-state="limit"],.word-count[data-state="over"]{font-weight:500}
+/* Fondos entregados para la campaña de reclutamiento. */
+.hero{width:100vw;margin-left:calc(50% - 50vw);padding:88px max(32px,calc((100vw - 1080px)/2)) 84px;background:#9c2c0c url('brand/campaign-desktop.webp') center/cover no-repeat;box-shadow:none;clip-path:none;color:#fff}
+.hero:after{inset:0;background:linear-gradient(90deg,rgba(45,16,7,.58),rgba(45,16,7,.32) 58%,rgba(45,16,7,0) 100%);opacity:1}
+.hero h1,.hero h1 em,.hero .lead{color:#fff}.hero .eyebrow{display:inline-block;margin:0;background:#f7a05c;color:#602706;border-radius:99px;padding:7px 15px;letter-spacing:.08em}.hero .button{background:#fff;color:#78340e}.hero .button:hover{background:#fff0e4}.hero a:focus-visible{outline-color:#fff}
+@media(max-width:650px){.hero{min-height:660px;padding:100px 24px 64px;background-image:url('brand/campaign-mobile.webp');background-position:center top}.hero:after{background:linear-gradient(180deg,rgba(45,16,7,.38),rgba(45,16,7,.52) 55%,rgba(45,16,7,.36))}.hero h1{font-size:clamp(37px,10.7vw,43px);max-width:19ch}.hero .lead{font-size:17px}.hero .button{margin-top:20px}}
+body{overflow-x:clip}
+html{overflow-x:clip}

@@ -32,3 +32,5 @@ Cada una de las siete respuestas incluye contador visible, aviso a las 100 palab
 
 
 Tipografía actual: Noto Sans SC (300 Light para lectura y 500 Medium para títulos y botones), licencia SIL OFL 1.1 incluida en brand/Noto-LICENSE.txt. Se alojan localmente los subconjuntos WOFF2 latino y latino extendido de Google Fonts. No se distribuye STHeiti.
+
+Fondos de campaña aportados por el cliente: desktop 2560×1440 y móvil 1080×1920, optimizados a WebP. El encabezado cambia de archivo hasta 650 px y superpone una capa oscura para facilitar la lectura del texto blanco.
