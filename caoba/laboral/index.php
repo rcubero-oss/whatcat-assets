@@ -67,7 +67,7 @@ if (isset($_GET['admin'])) {
     }
     header('Location: ?admin=1');exit;
   }
-  echo '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Candidaturas — Caoba</title><link rel="stylesheet" href="style.css?v=caoba-5"><main><h1>Candidaturas</h1><p>Registro privado. La evaluación y las decisiones corresponden al equipo de selección.</p>';
+  echo '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Candidaturas — Caoba</title><link rel="stylesheet" href="style.css?v=caoba-6"><main><h1>Candidaturas</h1><p>Registro privado. La evaluación y las decisiones corresponden al equipo de selección.</p>';
   foreach($db->query('SELECT * FROM applications ORDER BY created DESC') as $row) {
     $d=json_decode($row['data'],true); echo '<article><h2>'.h($d['name']).'</h2><p>'.h($row['created']).' · '.h($row['status']).'</p>';
     foreach($d as $key=>$value) echo '<p><strong>'.h($key).'</strong><br>'.nl2br(h($value)).'</p>';
@@ -112,7 +112,7 @@ if($_SERVER['REQUEST_METHOD']==='POST' && $ready) {
 }
 $success=isset($_GET['enviada'],$_SESSION['receipt']);
 ?>
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Construya su carrera en Derecho Laboral Corporativo | Caoba Legal</title><meta name="description" content="Una oportunidad para convertir su ambición en criterio. Asistente senior o abogado/a junior en Caoba Legal."><link rel="stylesheet" href="style.css?v=caoba-5"><script src="word-count.js?v=1" defer></script></head><body>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Construya su carrera en Derecho Laboral Corporativo | Caoba Legal</title><meta name="description" content="Una oportunidad para convertir su ambición en criterio. Asistente senior o abogado/a junior en Caoba Legal."><link rel="stylesheet" href="style.css?v=caoba-6"><script src="word-count.js?v=1" defer></script></head><body>
 <header><a href="#" class="brand" aria-label="Caoba Legal, inicio"><img src="brand/caoba-10anos.png" alt="Caoba Legal · 10 años" width="360" height="203"></a><span>Forme parte del equipo</span></header>
 <main><section class="hero"><p class="eyebrow">DERECHO LABORAL CORPORATIVO</p><h1>Una oportunidad para convertir su ambición en <em>criterio.</em></h1><p class="lead">Construya una trayectoria sólida junto a Paola Gutiérrez y Juan José Carreras, desarrollando experiencia en la atención a empresas.</p><a class="button" href="#postulacion">Conocer la oportunidad</a></section>
 <section class="intro"><p class="eyebrow">LA OPORTUNIDAD</p><h2>El criterio se desarrolla en la práctica, con la guía adecuada.</h2><p>Buscamos una persona motivada y con excelente actitud, interesada en especializarse en derecho laboral corporativo. Una oportunidad de aprendizaje cercano, corrección constructiva y experiencia con clientes empresariales destacados.</p></section>
