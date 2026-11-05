@@ -65,16 +65,60 @@ if (isset($_GET['admin'])) {
     if(in_array($status,['Recibida','En revisión','Preseleccionada','Entrevista','Cerrada'],true)) {
       $s=$db->prepare('UPDATE applications SET status=?, notes=? WHERE id=?'); $s->execute([$status,substr((string)($_POST['notes']??''),0,10000),$_POST['id']??'']);
     }
-    header('Location: ?admin=1');exit;
+    header('Location: ?admin=1&application='.rawurlencode((string)($_POST['id']??'' )).'&saved=1');exit;
   }
-  echo '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Candidaturas — Caoba</title><link rel="stylesheet" href="style.css?v=caoba-8"><main><h1>Candidaturas</h1><p>Registro privado. La evaluación y las decisiones corresponden al equipo de selección.</p>';
-  foreach($db->query('SELECT * FROM applications ORDER BY created DESC') as $row) {
+  $statuses=['Recibida','En revisión','Preseleccionada','Entrevista','Cerrada'];
+  $application=(string)($_GET['application']??'');
+  $selected=[];
+  if($application!=='') {
+    $stmt=$db->prepare('SELECT * FROM applications WHERE id=?'); $stmt->execute([$application]);
+    $row=$stmt->fetch(PDO::FETCH_ASSOC);
+    if(!$row) {http_response_code(404);exit('Candidatura no encontrada.');}
+    $selected=[$row];
+  }
+  echo '<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Candidaturas — Caoba</title><link rel="stylesheet" href="style.css?v=admin-1"><main class="admin"><h1>Candidaturas</h1><p>Registro privado. La evaluación y las decisiones corresponden al equipo de selección.</p>';
+  if($application==='') {
+    $search=mb_substr(trim((string)($_GET['search']??'')),0,200);
+    $filter=(string)($_GET['status']??''); if(!in_array($filter,$statuses,true)) $filter='';
+    $matches=[]; $total=(int)$db->query('SELECT COUNT(*) FROM applications')->fetchColumn();
+    foreach($db->query('SELECT id,created,data,status FROM applications ORDER BY created DESC,id DESC') as $row) {
+      $d=json_decode($row['data'],true)??[];
+      $haystack=mb_strtolower(implode(' ',[$d['name']??'',$d['email']??'',$d['profile']??'']));
+      if(($filter==='' || $row['status']===$filter) && ($search==='' || mb_strpos($haystack,mb_strtolower($search))!==false)) {
+        $row['candidate']=$d; $matches[]=$row;
+      }
+    }
+    $count=count($matches); $pages=max(1,(int)ceil($count/25));
+    $page=max(1,min($pages,(int)($_GET['page']??1)));
+    echo '<form method="get" class="admin-filters"><input type="hidden" name="admin" value="1"><label>Buscar por nombre, correo o perfil<input name="search" maxlength="200" value="'.h($search).'" type="search"></label><label>Estado<select name="status"><option value="">Todos los estados</option>';
+    foreach($statuses as $status) echo '<option '.($filter===$status?'selected':'').'>'.h($status).'</option>';
+    echo '</select></label><button>Buscar</button><a href="?admin=1">Limpiar filtros</a></form><p>'.h($count).' de '.h($total).' candidaturas · Más recientes primero</p>';
+    if(!$count) echo '<p class="notice">'.($total?'No hay candidaturas que coincidan con los filtros.':'Todavía no hay candidaturas.').'</p>';
+    else {
+      echo '<div class="admin-table-wrap"><table class="admin-table"><caption class="sr-only">Índice de candidaturas</caption><thead><tr><th scope="col">Nombre</th><th scope="col">Fecha (Costa Rica)</th><th scope="col">Perfil</th><th scope="col">Estado</th><th scope="col">Detalle</th></tr></thead><tbody>';
+      foreach(array_slice($matches,($page-1)*25,25) as $row) {
+        $d=$row['candidate']; $date=(new DateTimeImmutable($row['created']))->setTimezone(new DateTimeZone('America/Costa_Rica'))->format('d/m/Y H:i');
+        echo '<tr><td>'.h($d['name']??'').'</td><td>'.h($date).'</td><td>'.h($d['profile']??'').'</td><td><span class="admin-status">'.h($row['status']).'</span></td><td><a href="?admin=1&amp;application='.h($row['id']).'" aria-label="Ver candidatura de '.h($d['name']??'').'">Ver candidatura</a></td></tr>';
+      }
+      echo '</tbody></table></div>';
+      if($pages>1) {
+        echo '<nav class="admin-pages" aria-label="Páginas de candidaturas">';
+        foreach(['Anterior'=>$page-1,'Siguiente'=>$page+1] as $label=>$number) if($number>=1 && $number<=$pages) echo '<a href="?'.h(http_build_query(['admin'=>1,'search'=>$search,'status'=>$filter,'page'=>$number])).'">'.h($label).'</a> ';
+        echo '<span>Página '.h($page).' de '.h($pages).'</span></nav>';
+      }
+    }
+  } else {
+    echo '<p><a href="?admin=1">Volver al índice de candidaturas</a></p>';
+    if(isset($_GET['saved'])) echo '<p role="status" class="notice">Revisión guardada.</p>';
+  foreach($selected as $row) {
     $d=json_decode($row['data'],true); echo '<article><h2>'.h($d['name']).'</h2><p>'.h($row['created']).' · '.h($row['status']).'</p>';
     foreach($d as $key=>$value) echo '<p><strong>'.h($key).'</strong><br>'.nl2br(h($value)).'</p>';
     echo '<a href="?admin=1&amp;cv='.h($row['id']).'">Descargar currículum PDF</a><form method="post"><input type="hidden" name="csrf" value="'.h($_SESSION['csrf']).'"><input type="hidden" name="id" value="'.h($row['id']).'"><label>Estado<select name="status">';
     foreach(['Recibida','En revisión','Preseleccionada','Entrevista','Cerrada'] as $st) echo '<option '.($st===$row['status']?'selected':'').'>'.h($st).'</option>';
     echo '</select></label><label>Observaciones internas<textarea name="notes">'.h($row['notes']).'</textarea></label><button>Guardar revisión</button></form></article>';
-  } echo '</main>';exit;
+  }
+  }
+  echo '</main></html>';exit;
 }
 if($_SERVER['REQUEST_METHOD']==='POST' && $ready) {
   try {
