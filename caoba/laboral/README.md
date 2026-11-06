@@ -38,3 +38,5 @@ Fondos de campaña aportados por el cliente: desktop 2560×1440 y móvil 1080×1
 ## Índice privado de candidaturas
 
 El panel muestra nombre, fecha en Costa Rica, perfil y estado; permite buscar por nombre, correo o perfil y filtrar por estado. Orden descendente y paginación de 25 registros. Cada enlace abre un detalle privado con respuestas, descarga del CV, estado y notas; al guardar permanece en ese detalle. Las candidaturas históricas se leen sin migración.
+
+Validación: LinkedIn admite Unicode en la ruta y lo codifica sin eliminar tildes ni duplicar escapes. Se mantienen las restricciones de dominio, HTTPS y ruta de perfil. Los errores se agrupan en un resumen con enlaces y aparecen junto al campo; se conservan texto, selecciones y consentimiento al fallar. El PDF debe seleccionarse de nuevo tras un error del servidor por seguridad del navegador. La validación PHP opera incluso sin JavaScript.
